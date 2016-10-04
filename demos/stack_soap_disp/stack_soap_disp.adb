@@ -18,7 +18,7 @@
 
 with Ada.Text_IO;
 
-with AWS.Config;
+with AWS.Config.Set;
 with AWS.Services.Dispatchers.Stack;
 with AWS.Server;
 
@@ -38,7 +38,10 @@ procedure Stack_Soap_Disp is
 
    WS : AWS.Server.HTTP;
 
+   Config : AWS.Config.Object := AWS.Config.Default_Config;
+
 begin
+   AWS.Config.Set.Reuse_Address (Config, True);
 
    Stack.Append (Soap_Handling);
    Stack.Append (Page_1);
@@ -47,7 +50,7 @@ begin
    AWS.Server.Start
      (WS,
       Dispatcher => Stack,
-      Config     => AWS.Config.Default_Config);
+      Config     => Config);
 
    Ada.Text_IO.Put_Line ("Stack dispatcher Server - hit a key to exit");
 

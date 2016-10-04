@@ -38,13 +38,13 @@ with AWS.Status;
 package AWS.Services.Dispatchers.Stack is
 
    type Item_Interface is interface;
-   function Callback (Object : Item_Interface;
+   function Callback (Object : in out Item_Interface;
                       Request : AWS.Status.Data)
                      return AWS.Response.Data is abstract;
 
    type Handler is new AWS.Dispatchers.Handler with private;
    procedure Append (Dispatcher : in out Handler; Item : Item_Interface'Class);
-   overriding function Dispatch (Dispatcher : Handler;
+   overriding function Dispatch (Dispatcher : in out Handler;
                                  Request    : Status.Data)
                                 return Response.Data;
 

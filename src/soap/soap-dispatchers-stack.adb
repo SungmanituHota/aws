@@ -36,7 +36,7 @@ package body SOAP.Dispatchers.Stack is
 
    use Ada.Strings.Unbounded;
 
-   overriding function Callback (Object : Item;
+   overriding function Callback (Object : in out Item;
                                  Request : AWS.Status.Data)
                                 return AWS.Response.Data is
    begin
